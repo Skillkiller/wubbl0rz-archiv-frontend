@@ -4,5 +4,5 @@ services:
         container_name: archiv-frontend
         build: .
         ports:
-            - 8001:3000
+            - 127.0.0.1:8002:3000
         restart: always
