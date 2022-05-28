@@ -113,6 +113,6 @@
             async
             defer
             data-website-id="df348655-2d47-427d-87d2-7a4b048c8216"
-            src="https://umami.wubbl0rz.tv/umami.js"></script>
+            src="https://umami.wubbl0rz.tv/u.js"></script>
     {/if}
 </footer>
