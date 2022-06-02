@@ -3,10 +3,11 @@
     import { format, formatDistanceToNow, parseISO } from 'date-fns';
     import { de } from 'date-fns/locale/index.js';
     import { goto } from '$app/navigation';
-    import { theme } from '../stores';
+    import { theme } from '@stores/main';
+    import { fetchApi } from '/src/functions';
 
-    import Head from '../components/Head.svelte';
-    import Footer from '../components/Footer.svelte';
+    import Head from '@components/Head.svelte';
+    import Footer from '@components/Footer.svelte';
 
     // vars
     let clips;
@@ -16,7 +17,6 @@
     let showResults = false;
     let searchFocus = -1;
     let preferesDark;
-    const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     onMount(async () => {
         // bootstrap js
@@ -25,6 +25,8 @@
         await import('bootstrap/js/dist/collapse');
         await import('bootstrap/js/dist/dropdown');
         await import('bootstrap/js/dist/modal');
+
+        statsDB = await fetchApi('/stats/db/');
     });
 
     onMount(() => {
@@ -71,33 +73,14 @@
         localStorage.setItem('theme', newTheme);
     }
 
-    async function fetchDB() {
-        const response = await fetch(`${BASE_URL}/stats/db/`);
-        const s = await response.json();
-        statsDB = s;
-    }
-    fetchDB();
-
     // handle search
-    async function fetchSearch() {
-        const [vodsResponse, clipsResponse] = await Promise.all([
-            fetch(`${BASE_URL}/vods/?page_size=4&search=${query}`),
-            fetch(`${BASE_URL}/clips/?page_size=4&search=${query}`)
-        ]);
-        const v = await vodsResponse.json();
-        const c = await clipsResponse.json();
-        return [v, c];
-    }
-
-    function search() {
+    async function search() {
         if (query.length < 3) {
             return;
         }
         showResults = true;
-        fetchSearch().then(([v, c]) => {
-            vods = v;
-            clips = c;
-        });
+        vods = await fetchApi(`/vods/?page_size=4&search=${query}`);
+        clips = await fetchApi(`/clips/?page_size=4&search=${query}`);
     }
 
     search();

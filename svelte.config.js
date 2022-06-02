@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
+import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -12,6 +13,12 @@ const config = {
         vite: {
             build: {
                 chunkSizeWarningLimit: 1500
+            },
+            resolve: {
+                alias: {
+                    '@components': path.resolve('./src/components'),
+                    '@stores': path.resolve('./src/stores')
+                }
             }
         }
     }

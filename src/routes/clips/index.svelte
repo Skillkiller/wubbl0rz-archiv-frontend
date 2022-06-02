@@ -1,9 +1,10 @@
 <script>
-    import ClipGrid from '../../components/ClipGrid.svelte';
-    import GridPlaceholder from '../../components/GridPlaceholder.svelte';
-    import Pagination from '../../components/Pagination.svelte';
-    import { clipFilter } from '../../stores';
+    import ClipGrid from '@components/ClipGrid.svelte';
+    import GridPlaceholder from '@components/GridPlaceholder.svelte';
+    import Pagination from '@components/Pagination.svelte';
+    import { clipFilter } from '@stores/main';
     import { page } from '$app/stores';
+    import { fetchApi } from '/src/functions';
 
     let clips;
     let p = 1;
@@ -16,8 +17,7 @@
         if (f['date_to'] != null && f['date_to'] != '') {
             params += `&date_to=${f['date_to']}`;
         }
-        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/clips/${params}`);
-        const c = await response.json();
+        const c = await fetchApi(`/clips/${params}`);
         clips = c;
         window.scrollTo(0, 0);
         return c;

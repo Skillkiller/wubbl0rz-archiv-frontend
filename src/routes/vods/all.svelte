@@ -1,20 +1,17 @@
 <script>
-    import VodGrid from '../../components/VodGrid.svelte';
-    import GridPlaceholder from '../../components/GridPlaceholder.svelte';
-    import Pagination from '../../components/Pagination.svelte';
+    import VodGrid from '@components/VodGrid.svelte';
+    import GridPlaceholder from '@components/GridPlaceholder.svelte';
+    import Pagination from '@components/Pagination.svelte';
     import { page } from '$app/stores';
+    import { fetchApi } from '/src/functions';
 
     let vods;
     let p = 1;
 
     async function fetchVods(p) {
-        const response = await fetch(
-            `${import.meta.env.VITE_BASE_URL}/vods/?page_size=48&page=${p}`
-        );
-        const v = await response.json();
-        vods = v;
+        vods = await fetchApi(`/vods/?page_size=48&page=${p}`);
         window.scrollTo(0, 0);
-        return v;
+        return vods;
     }
 </script>
 

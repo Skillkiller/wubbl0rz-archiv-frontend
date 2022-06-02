@@ -1,23 +1,10 @@
 <script>
-    import { formatBytes } from '../functions.svelte';
-    import StatsBox from '../components/StatsBox.svelte';
-    import ChartBar from '../components/ChartBar.svelte';
-    import ChartDoughnut from '../components/ChartDoughnut.svelte';
-    import ChartLine from '../components/ChartLine.svelte';
-
-    const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-    async function fetchStats() {
-        const response = await fetch(`${BASE_URL}/stats`);
-        const s = await response.json();
-        return s;
-    }
-
-    async function fetchEmotes(provider) {
-        const response = await fetch(`${BASE_URL}/emotes/?page_size=500&provider=${provider}`);
-        const e = await response.json();
-        return e;
-    }
+    import { formatBytes } from '/src/functions';
+    import StatsBox from '@components/StatsBox.svelte';
+    import ChartBar from '@components/ChartBar.svelte';
+    import ChartDoughnut from '@components/ChartDoughnut.svelte';
+    import ChartLine from '@components/ChartLine.svelte';
+    import { fetchApi } from '/src/functions';
 </script>
 
 <svelte:head>
@@ -27,7 +14,7 @@
 <main class="flex-shrink-0">
     <div class="container mb-4">
         <h1 class="display-4 fw-bolder pb-3">Statistiken</h1>
-        {#await fetchStats() then stats}
+        {#await fetchApi('/stats') then stats}
             <section>
                 <div class="row">
                     <div class="col-12 col-sm-6 col-lg-3 p-2">
@@ -94,7 +81,7 @@
             <h3 class="display-6 py-3">
                 <strong>Emotes</strong>
             </h3>
-            {#await fetchEmotes('twitch')}
+            {#await fetchApi(`/emotes/?page_size=500&provider=twitch`)}
                 <h4 class="h4">Twitch</h4>
             {:then emotes}
                 <h4 class="h4">
@@ -116,7 +103,7 @@
                     {/each}
                 </div>
             {/await}
-            {#await fetchEmotes('bttv')}
+            {#await fetchApi(`/emotes/?page_size=500&provider=bttv`)}
                 <h4 class="h4 pt-4">BetterTTV</h4>
             {:then emotes}
                 <h4 class="h4 pt-4">
@@ -138,7 +125,7 @@
                     {/each}
                 </div>
             {/await}
-            {#await fetchEmotes('ffz')}
+            {#await fetchApi(`/emotes/?page_size=500&provider=ffz`)}
                 <h4 class="h4 pt-4">FrankerFaceZ</h4>
             {:then emotes}
                 <h4 class="h4 pt-4">

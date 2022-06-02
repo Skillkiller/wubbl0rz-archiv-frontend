@@ -2,7 +2,7 @@
     import VideoThumbnail from './VideoThumbnail.svelte';
     import { formatDistanceToNow, parseISO } from 'date-fns';
     import { de } from 'date-fns/locale/index.js';
-    import { emotes, showEmotesInTitle } from '../stores/emotes';
+    import { emotes, showEmotesInTitle } from '@stores/emotes';
 
     export let clips;
 </script>

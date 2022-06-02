@@ -1,9 +1,10 @@
 <script>
-    import VodGrid from '../../components/VodGrid.svelte';
-    import ClipGrid from '../../components/ClipGrid.svelte';
-    import GridPlaceholder from '../../components/GridPlaceholder.svelte';
-    import Pagination from '../../components/Pagination.svelte';
+    import VodGrid from '@components/VodGrid.svelte';
+    import ClipGrid from '@components/ClipGrid.svelte';
+    import GridPlaceholder from '@components/GridPlaceholder.svelte';
+    import Pagination from '@components/Pagination.svelte';
     import { page } from '$app/stores';
+    import { fetchApi } from '/src/functions';
 
     let vodsPage = 1;
     let clipsPage = 1;
@@ -13,14 +14,6 @@
     page.subscribe(() => {
         query = $page.params.query;
     });
-
-    async function fetchSearch(type, p, q) {
-        const response = await fetch(
-            `${import.meta.env.VITE_BASE_URL}/${type}/?page_size=${pageSize}&page=${p}&search=${q}`
-        );
-        const resp = await response.json();
-        return resp;
-    }
 </script>
 
 <svelte:head>
@@ -35,7 +28,7 @@
 
 <main class="flex-shrink-0">
     <div class="container">
-        {#await fetchSearch('vods', vodsPage, query)}
+        {#await fetchApi(`/vods/?page_size=${pageSize}&page=${vodsPage}&search=${query}`)}
             <div class="row mb-4">
                 <div class="col-xs-12 col-md-7">
                     <h1 class="display-4 fw-bolder p-0 m-0 align-self-center">Vod Ergebnisse</h1>
@@ -64,7 +57,7 @@
         {/await}
     </div>
     <div class="container">
-        {#await fetchSearch('clips', clipsPage, query)}
+        {#await fetchApi(`/clips/?page_size=${pageSize}&page=${clipsPage}&search=${query}`)}
             <div class="row mb-4">
                 <div class="col-xs-12 col-md-7">
                     <h1 class="display-4 fw-bolder p-0 m-0 align-self-center">Clip Ergebnisse</h1>

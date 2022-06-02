@@ -1,14 +1,14 @@
 <script>
     import { page } from '$app/stores';
     import { format, parseISO } from 'date-fns';
-    import { emotes, showEmotesInTitle } from '../../stores/emotes';
+    import { emotes, showEmotesInTitle } from '@stores/emotes';
+    import { fetchApi } from '/src/functions';
 
     let vodCount = 0;
     let vods = {};
 
     async function fetchYears() {
-        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/years/`);
-        const y = await response.json();
+        const y = await fetchApi('/years/');
         y.forEach((element) => {
             vodCount += element.count;
         });
@@ -19,10 +19,7 @@
         if (y in vods) {
             return;
         }
-        const response = await fetch(
-            `${import.meta.env.VITE_BASE_URL}/vods/?page_size=500&year=${y}`
-        );
-        const year = await response.json();
+        const year = await fetchApi(`/vods/?page_size=500&year=${y}`);
         vods[y] = year.results;
     }
 

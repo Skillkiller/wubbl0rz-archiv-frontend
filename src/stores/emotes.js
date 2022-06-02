@@ -1,13 +1,8 @@
 import { readable } from 'svelte/store';
-
-async function fetchEmotes() {
-    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/emotes/?page_size=500`);
-    const e = await response.json();
-    return e;
-}
+import { fetchApi } from '/src/functions';
 
 const emotes = readable([], (set) => {
-    fetchEmotes()
+    fetchApi('/emotes/?page_size=500')
         .then((data) => set(data.results))
         .catch((err) => {
             console.error('Failed to fetch', err);

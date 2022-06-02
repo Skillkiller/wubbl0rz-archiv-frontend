@@ -1,11 +1,10 @@
 <script context="module">
+    import { fetchApi } from '/src/functions';
+
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     export async function load({ params }) {
-        const url = `${BASE_URL}/vods/${params.uuid}/`;
-        const response = await fetch(url);
-        const vod = await response.json();
-
+        const vod = await fetchApi(`/vods/${params.uuid}/`);
         return { props: { vod } };
     }
 </script>
@@ -13,13 +12,13 @@
 <script>
     import { onMount } from 'svelte';
     import { format, parseISO } from 'date-fns';
-    import { formatBytes } from '../../../functions.svelte';
-    import VideoThumbnail from '../../../components/VideoThumbnail.svelte';
-    import Player from '../../../components/Player.svelte';
-    import GridPlaceholder from '../../../components/GridPlaceholder.svelte';
-    import ShareButton from '../../../components/ShareButton.svelte';
-    import HotkeyModal from '../../../components/HotkeyModal.svelte';
-    import { emotes, showEmotesInTitle } from '../../../stores/emotes';
+    import { formatBytes } from '/src/functions';
+    import VideoThumbnail from '@components/VideoThumbnail.svelte';
+    import Player from '@components/Player.svelte';
+    import GridPlaceholder from '@components/GridPlaceholder.svelte';
+    import ShareButton from '@components/ShareButton.svelte';
+    import HotkeyModal from '@components/HotkeyModal.svelte';
+    import { emotes, showEmotesInTitle } from '@stores/emotes';
 
     export let vod;
     let time = 0;
@@ -30,12 +29,6 @@
             time = parseInt(urlParams.get('t'));
         }
     });
-
-    async function fetchClip(clip_uuid) {
-        const response = await fetch(`${BASE_URL}/clips/${clip_uuid}/`);
-        const c = await response.json();
-        return c;
-    }
 </script>
 
 <svelte:head>
@@ -177,7 +170,7 @@
                 <p class="display-6 fw-bolder">Clips für dieses Vod:</p>
                 <div class="row">
                     {#each vod.clip_set as uuid}
-                        {#await fetchClip(uuid)}
+                        {#await fetchApi(`/clips/${uuid}`)}
                             <GridPlaceholder count="1" />
                         {:then clip}
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">

@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { Chart, registerables } from 'chart.js/dist/chart.esm';
-    import { theme } from '../stores';
+    import { theme } from '@stores/main';
     import { themeColors } from './StatsColors.svelte';
 
     Chart.register(...registerables);
