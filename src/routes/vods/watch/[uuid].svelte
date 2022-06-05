@@ -195,7 +195,8 @@
                                         </p>
                                     </a>
                                     <p class="card-text text-muted">
-                                        {format(parseISO(vod.date), 'dd.MM.yyyy - HH:mm')} Uhr<br />
+                                        {format(parseISO(clip.date), 'dd.MM.yyyy - HH:mm')} Uhr<br
+                                        />
                                         {clip.view_count} Views - {clip.creator}
                                     </p>
                                 </div>
