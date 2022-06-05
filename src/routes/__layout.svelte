@@ -3,7 +3,7 @@
     import { format, formatDistanceToNow, parseISO } from 'date-fns';
     import { de } from 'date-fns/locale/index.js';
     import { goto } from '$app/navigation';
-    import { theme, db } from '@stores/main';
+    import { theme } from '@stores/main';
     import { fetchApi } from '/src/functions';
 
     import Head from '@components/Head.svelte';

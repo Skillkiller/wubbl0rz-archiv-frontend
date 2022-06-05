@@ -1,5 +1,4 @@
 import { writable } from 'svelte/store';
-import { fetchApi } from '/src/functions';
 
 export const clipFilter = writable({
     sort_by: 'date',
