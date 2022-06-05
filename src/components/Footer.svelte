@@ -1,9 +1,17 @@
 <script>
+    import { onMount } from 'svelte';
     import { formatRelative, parseISO } from 'date-fns';
     import { de } from 'date-fns/locale/index.js';
     import { page } from '$app/stores';
+    import { db } from '@stores/main';
 
-    export let statsDB;
+    let statsDB;
+
+    onMount(() => {
+        db.subscribe((newStats) => {
+            statsDB = newStats;
+        });
+    })
 </script>
 
 <footer class="footer mt-auto py-3">
@@ -13,7 +21,7 @@
                 <p class="mb-1 fw-bold fs-6">Letztes Update</p>
                 {#if statsDB}
                     <p class="m-0">
-                        {formatRelative(parseISO(statsDB.last_vod_sync), new Date(), {
+                        {formatRelative(parseISO(statsDB?.last_vod_sync), new Date(), {
                             locale: de
                         })} Uhr
                     </p>

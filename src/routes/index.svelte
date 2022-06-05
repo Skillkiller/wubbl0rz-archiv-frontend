@@ -1,11 +1,29 @@
 <script>
-    // components
+    import { onMount, onDestroy } from 'svelte';
     import VodGrid from '@components/VodGrid.svelte';
     import ClipGrid from '@components/ClipGrid.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
     import subMonths from 'date-fns/subMonths/index.js';
     import { page } from '$app/stores';
     import { fetchApi } from '/src/functions';
+    import { db } from '@stores/main';
+
+    let statsDB;
+
+    const interval = setInterval(async () => {
+        const req = await fetchApi('/stats/db/');
+        db.set(req);
+    }, 60000);
+
+    onMount(() => {
+        db.subscribe((newStats) => {
+            statsDB = newStats;
+        });
+    });
+
+    onDestroy(() => {
+        clearInterval(interval);
+    });
 </script>
 
 <svelte:head>
@@ -18,6 +36,12 @@
 
 <main class="flex-shrink-0">
     <div class="container">
+        {#if statsDB?.is_live}
+            <div class="alert alert-success" role="alert">
+                <strong>Max ist live!</strong> Hier gehts zum Stream:
+                <a href="https://www.twitch.tv/wubbl0rz" class="alert-link">twitch.tv/wubbl0rz</a>
+            </div>
+        {/if}
         <h1 class="display-4 fw-bolder p-0 m-0 mb-4 align-self-center">
             <a href="/vods/all" class="text-decoration-none">Kürzliche Vods</a>
         </h1>

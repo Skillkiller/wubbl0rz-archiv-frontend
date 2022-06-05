@@ -1,7 +1,15 @@
 <script>
+    import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import { db } from '@stores/main';
 
-    export let updated_time;
+    let statsDB;
+
+    onMount(() => {
+        db.subscribe((newStats) => {
+            statsDB = newStats;
+        });
+    });
 </script>
 
 <svelte:head>
@@ -13,7 +21,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     {#if !$page.url.pathname.startsWith('/vods/watch/') && !$page.url.pathname.startsWith('/clips/watch/')}
-        <meta property="og:updated_time" content={updated_time} />
+        <meta property="og:updated_time" content={statsDB?.updated_time} />
     {/if}
     <!-- Prevent flashing theme -->
     <script data-cfasync="false">

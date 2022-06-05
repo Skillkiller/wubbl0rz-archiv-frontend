@@ -3,7 +3,7 @@
     import { format, formatDistanceToNow, parseISO } from 'date-fns';
     import { de } from 'date-fns/locale/index.js';
     import { goto } from '$app/navigation';
-    import { theme } from '@stores/main';
+    import { theme, db } from '@stores/main';
     import { fetchApi } from '/src/functions';
 
     import Head from '@components/Head.svelte';
@@ -12,7 +12,6 @@
     // vars
     let clips;
     let vods;
-    let statsDB;
     let query = '';
     let showResults = false;
     let searchFocus = -1;
@@ -25,8 +24,6 @@
         await import('bootstrap/js/dist/collapse');
         await import('bootstrap/js/dist/dropdown');
         await import('bootstrap/js/dist/modal');
-
-        statsDB = await fetchApi('/stats/db/');
     });
 
     onMount(() => {
@@ -119,7 +116,7 @@
     }
 </script>
 
-<Head updated_time={statsDB?.last_vod_sync} />
+<Head />
 
 <header>
     <nav class="navbar navbar-expand-lg sticky-top mb-4">
@@ -324,7 +321,7 @@
 
 <slot />
 
-<Footer {statsDB} />
+<Footer />
 
 <style lang="scss" global>
     @import '../main.scss';
