@@ -11,7 +11,7 @@
         db.subscribe((newStats) => {
             statsDB = newStats;
         });
-    })
+    });
 </script>
 
 <footer class="footer mt-auto py-3">
