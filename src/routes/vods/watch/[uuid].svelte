@@ -192,7 +192,6 @@
                                             {:then newTitle}
                                                 {@html newTitle}
                                             {/await}
-                                            {clip.title}
                                         </p>
                                     </a>
                                     <p class="card-text text-muted">
