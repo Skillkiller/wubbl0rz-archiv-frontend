@@ -11,11 +11,12 @@
     let statsDB;
 
     const interval = setInterval(async () => {
-        const req = await fetchApi('/stats/db/');
-        db.set(req);
+        db.set(await fetchApi('/stats/db/'));
     }, 60000);
 
-    onMount(() => {
+    onMount(async () => {
+        db.set(await fetchApi('/stats/db/'));
+
         db.subscribe((newStats) => {
             statsDB = newStats;
         });

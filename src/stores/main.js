@@ -9,5 +9,5 @@ export const clipFilter = writable({
 });
 
 export const theme = writable();
-export const db = writable(await fetchApi('/stats/db/'));
+export const db = writable();
 if (typeof window !== 'undefined') [theme.set(localStorage.getItem('theme'))];
