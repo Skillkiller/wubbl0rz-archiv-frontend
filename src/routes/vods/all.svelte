@@ -1,12 +1,19 @@
 <script>
+    import SEO from '@components/SEO.svelte';
     import VodGrid from '@components/VodGrid.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
     import Pagination from '@components/Pagination.svelte';
-    import { page } from '$app/stores';
     import { fetchApi } from '/src/functions';
 
     let vods;
     let p = 1;
+    let statsDB;
+    let ogTags = {
+        title: 'Alle Vods',
+        description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',
+        imageurl: '/img/og.jpg',
+        imagealt: 'Wubbl0rz Archiv OG Image'
+    };
 
     async function fetchVods(p) {
         vods = await fetchApi(`/vods/?page_size=48&page=${p}`);
@@ -15,13 +22,7 @@
     }
 </script>
 
-<svelte:head>
-    <meta property="og:title" content="Alle Vods" />
-    <meta property="og:url" content={$page.url} />
-    <meta property="og:updated_time" content="Alle Vods" />
-    <meta name="twitter:title" content="Alle Vods" />
-    <title>Alle Vods</title>
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
     <div class="container">

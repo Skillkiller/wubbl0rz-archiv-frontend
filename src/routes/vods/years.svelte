@@ -1,11 +1,19 @@
 <script>
-    import { page } from '$app/stores';
+    import SEO from '@components/SEO.svelte';
     import { format, parseISO } from 'date-fns';
     import { emotes, showEmotesInTitle } from '@stores/emotes';
     import { fetchApi } from '/src/functions';
 
     let vodCount = 0;
     let vods = {};
+
+    let statsDB;
+    let ogTags = {
+        title: 'Jahresansicht',
+        description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',
+        imageurl: '/img/og.jpg',
+        imagealt: 'Wubbl0rz Archiv OG Image'
+    };
 
     async function fetchYears() {
         const y = await fetchApi('/years/');
@@ -35,13 +43,7 @@
     }
 </script>
 
-<svelte:head>
-    <meta property="og:title" content="Jahresansicht" />
-    <meta property="og:url" content={$page.url} />
-    <meta property="og:updated_time" content="Jahresansicht" />
-    <meta name="twitter:title" content="Jahresansicht" />
-    <title>Jahresansicht</title>
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <div class="container">
     <h1 class="display-4 fw-bold pb-3">

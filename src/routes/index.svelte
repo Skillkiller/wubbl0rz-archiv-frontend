@@ -1,39 +1,21 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';
+    import { fetchApi } from '/src/functions';
     import VodGrid from '@components/VodGrid.svelte';
     import ClipGrid from '@components/ClipGrid.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
+    import SEO from '@components/SEO.svelte';
     import subMonths from 'date-fns/subMonths/index.js';
-    import { page } from '$app/stores';
-    import { fetchApi } from '/src/functions';
-    import { db } from '@stores/main';
 
     let statsDB;
-
-    const interval = setInterval(async () => {
-        db.set(await fetchApi('/stats/db/'));
-    }, 60000);
-
-    onMount(async () => {
-        db.set(await fetchApi('/stats/db/'));
-
-        db.subscribe((newStats) => {
-            statsDB = newStats;
-        });
-    });
-
-    onDestroy(() => {
-        clearInterval(interval);
-    });
+    let ogTags = {
+        title: 'Wubbl0rz Archiv',
+        description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',
+        imageurl: '/img/og.jpg',
+        imagealt: 'Wubbl0rz Archiv OG Image'
+    };
 </script>
 
-<svelte:head>
-    <meta property="og:title" content="Wubbl0rz Archiv" />
-    <meta property="og:url" content={$page.url} />
-    <meta property="og:updated_time" content="Wubbl0rz Archiv" />
-    <meta name="twitter:title" content="Wubbl0rz Archiv" />
-    <title>Wubbl0rz Archiv</title>
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
     <div class="container">

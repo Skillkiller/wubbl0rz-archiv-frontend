@@ -4,12 +4,19 @@
     import ChartBar from '@components/ChartBar.svelte';
     import ChartDoughnut from '@components/ChartDoughnut.svelte';
     import ChartLine from '@components/ChartLine.svelte';
+    import SEO from '@components/SEO.svelte';
     import { fetchApi } from '/src/functions';
+
+    let statsDB;
+    let ogTags = {
+        title: 'Statistiken',
+        description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',
+        imageurl: '/img/og.jpg',
+        imagealt: 'Wubbl0rz Archiv OG Image'
+    };
 </script>
 
-<svelte:head>
-    <title>Statistiken</title>
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
     <div class="container mb-4">

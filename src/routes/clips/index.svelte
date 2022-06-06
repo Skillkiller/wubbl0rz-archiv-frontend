@@ -2,12 +2,19 @@
     import ClipGrid from '@components/ClipGrid.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
     import Pagination from '@components/Pagination.svelte';
+    import SEO from '@components/SEO.svelte';
     import { clipFilter } from '@stores/main';
-    import { page } from '$app/stores';
     import { fetchApi } from '/src/functions';
 
     let clips;
     let p = 1;
+    let statsDB;
+    let ogTags = {
+        title: 'Alle Clips',
+        description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',
+        imageurl: '/img/og.jpg',
+        imagealt: 'Wubbl0rz Archiv OG Image'
+    };
 
     async function fetchClips(f, p) {
         let params = `?page_size=48&page=${p}&ordering=${f['direction']}${f['sort_by']}`;
@@ -24,13 +31,7 @@
     }
 </script>
 
-<svelte:head>
-    <meta property="og:title" content="Alle Clips" />
-    <meta property="og:url" content={$page.url} />
-    <meta property="og:updated_time" content="Alle Clips" />
-    <meta name="twitter:title" content="Alle Clips" />
-    <title>Alle Clips</title>
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
     <div class="container">

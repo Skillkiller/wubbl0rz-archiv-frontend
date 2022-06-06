@@ -18,10 +18,18 @@
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
     import ShareButton from '@components/ShareButton.svelte';
     import HotkeyModal from '@components/HotkeyModal.svelte';
+    import SEO from '@components/SEO.svelte';
     import { emotes, showEmotesInTitle } from '@stores/emotes';
 
     export let clip;
     let time = 0;
+    let statsDB;
+    let ogTags = {
+        title: clip.title,
+        description: `Clip von ${clip.creator} mit ${clip.view_count} Views`,
+        imageurl: `${BASE_URL}/media/clips/${clip.clip_id}-lg.jpg`,
+        imagealt: 'Clip Thumbnail'
+    };
 
     onMount(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -31,26 +39,7 @@
     });
 </script>
 
-<svelte:head>
-    <meta name="description" content="Clip von {clip.creator} mit {clip.view_count} Views" />
-    <meta property="og:title" content={clip.title} />
-    <meta property="og:description" content="Clip von {clip.creator} mit {clip.view_count} Views" />
-    <meta property="og:updated_time" content={clip.date} />
-    <meta property="og:image" content="{BASE_URL}/media/clips/{clip.clip_id}-lg.jpg" />
-    <meta property="og:image:url" content="{BASE_URL}/media/clips/{clip.clip_id}-lg.jpg" />
-    <meta property="og:image:secure_url" content="{BASE_URL}/media/clips/{clip.clip_id}-lg.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Clip Thumbnail" />
-    <meta name="twitter:title" content={clip.title} />
-    <meta
-        name="twitter:description"
-        content="Clip von {clip.creator} mit {clip.view_count} Views"
-    />
-    <meta name="twitter:image" content="{BASE_URL}/media/clips/{clip.clip_id}-lg.jpg" />
-    <meta name="twitter:image:alt" content="Clip Thumbnail" />
-    <title>{clip.title}</title>
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
     <div class="container">

@@ -18,10 +18,18 @@
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
     import ShareButton from '@components/ShareButton.svelte';
     import HotkeyModal from '@components/HotkeyModal.svelte';
+    import SEO from '@components/SEO.svelte';
     import { emotes, showEmotesInTitle } from '@stores/emotes';
 
     export let vod;
     let time = 0;
+    let statsDB;
+    let ogTags = {
+        title: vod.title,
+        description: `Vod vom ${format(parseISO(vod.date), 'dd.MM.yyyy')}`,
+        imageurl: `${BASE_URL}/media/vods/${vod.filename}-lg.jpg`,
+        imagealt: 'Vod Thumbnail'
+    };
 
     onMount(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -31,23 +39,7 @@
     });
 </script>
 
-<svelte:head>
-    <meta name="description" content="Vod vom {format(parseISO(vod.date), 'dd.MM.yyyy')}" />
-    <meta property="og:title" content={vod.title} />
-    <meta property="og:description" content="Vod vom {format(parseISO(vod.date), 'dd.MM.yyyy')}" />
-    <meta property="og:updated_time" content={vod.date} />
-    <meta property="og:image" content="{BASE_URL}/media/vods/{vod.filename}-lg.jpg" />
-    <meta property="og:image:url" content="{BASE_URL}/media/vods/{vod.filename}-lg.jpg" />
-    <meta property="og:image:secure_url" content="{BASE_URL}/media/vods/{vod.filename}-lg.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Vod Thumbnail" />
-    <meta name="twitter:title" content={vod.title} />
-    <meta name="twitter:description" content="Vod vom {format(parseISO(vod.date), 'dd.MM.yyyy')}" />
-    <meta name="twitter:image" content="{BASE_URL}/media/vods/{vod.filename}-lg.jpg" />
-    <meta name="twitter:image:alt" content="Vod Thumbnail" />
-    <title>{vod.title}</title>
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
     <div class="container">
