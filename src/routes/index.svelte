@@ -6,7 +6,7 @@
     import SEO from '@components/SEO.svelte';
     import subMonths from 'date-fns/subMonths/index.js';
 
-    let statsDB;
+    let statsDB = {};
     let ogTags = {
         title: 'Wubbl0rz Archiv',
         description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',

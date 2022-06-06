@@ -7,7 +7,7 @@
     import SEO from '@components/SEO.svelte';
     import { fetchApi } from '/src/functions';
 
-    let statsDB;
+    let statsDB = {};
     let ogTags = {
         title: 'Statistiken',
         description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',

@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { toHHMMSS } from '/src/functions';
 
     export let time;
 
@@ -17,17 +18,6 @@
     });
 
     $: shareTime, (shareUrl = shareTime ? baseUrl + '?t=' + time : baseUrl);
-
-    function toHHMMSS(t) {
-        const sec_num = parseInt(t, 10);
-        let hours = Math.floor(sec_num / 3600);
-        let minutes = Math.floor((sec_num - hours * 3600) / 60);
-        let seconds = sec_num - hours * 3600 - minutes * 60;
-        let h = hours < 10 ? '0' + hours : hours;
-        let m = minutes < 10 ? '0' + minutes : minutes;
-        let s = seconds < 10 ? '0' + seconds : seconds;
-        return h + ':' + m + ':' + s;
-    }
 
     function copyToClipboard() {
         navigator.clipboard.writeText(shareUrl);
@@ -109,7 +99,7 @@
                         bind:checked={shareTime}
                     />
                     <label class="form-check-label" for="share-checkbox" id="share-at-text">
-                        Teilen bei {toHHMMSS(time)}
+                        Teilen bei {toHHMMSS(time, true)}
                     </label>
                 </div>
             </li>

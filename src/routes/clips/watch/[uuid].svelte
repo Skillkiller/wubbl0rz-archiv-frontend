@@ -12,7 +12,7 @@
 <script>
     import { onMount } from 'svelte';
     import { format, parseISO } from 'date-fns';
-    import { formatBytes } from '/src/functions.js';
+    import { formatBytes, parseShareTime } from '/src/functions.js';
     import VideoThumbnail from '@components/VideoThumbnail.svelte';
     import Player from '@components/Player.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
@@ -23,7 +23,7 @@
 
     export let clip;
     let time = 0;
-    let statsDB;
+    let statsDB = {};
     let ogTags = {
         title: clip.title,
         description: `Clip von ${clip.creator} mit ${clip.view_count} Views`,
@@ -32,10 +32,7 @@
     };
 
     onMount(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('t')) {
-            time = parseInt(urlParams.get('t'));
-        }
+        time = parseShareTime(window.location.search);
     });
 </script>
 

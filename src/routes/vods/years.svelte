@@ -2,12 +2,12 @@
     import SEO from '@components/SEO.svelte';
     import { format, parseISO } from 'date-fns';
     import { emotes, showEmotesInTitle } from '@stores/emotes';
-    import { fetchApi } from '/src/functions';
+    import { fetchApi, toHHMMSS } from '/src/functions';
 
     let vodCount = 0;
     let vods = {};
 
-    let statsDB;
+    let statsDB = {};
     let ogTags = {
         title: 'Jahresansicht',
         description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',
@@ -29,17 +29,6 @@
         }
         const year = await fetchApi(`/vods/?page_size=500&year=${y}`);
         vods[y] = year.results;
-    }
-
-    function toHHMMSS(duration) {
-        const sec_num = parseInt(duration, 10);
-        let hours = Math.floor(sec_num / 3600);
-        let minutes = Math.floor((sec_num - hours * 3600) / 60);
-        let seconds = sec_num - hours * 3600 - minutes * 60;
-        let h = hours < 10 ? '0' + hours : hours;
-        let m = minutes < 10 ? '0' + minutes : minutes;
-        let s = seconds < 10 ? '0' + seconds : seconds;
-        return h + ':' + m + ':' + s;
     }
 </script>
 
@@ -91,7 +80,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-md-auto order-sm-last">
-                                                {toHHMMSS(vod.duration)} h
+                                                {toHHMMSS(vod.duration, true)}
                                             </div>
                                         </div>
                                         <hr class="my-2 mx-0" />

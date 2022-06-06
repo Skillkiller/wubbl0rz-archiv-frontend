@@ -1,4 +1,6 @@
 <script>
+    import { toHHMMSS } from '/src/functions';
+
     export let type;
     export let filename;
     export let title;
@@ -26,22 +28,6 @@
     function hidePrev() {
         avifSm.srcset = `${BASE_URL}/media/${type}/${filename}-sm.avif`;
         avifMd.srcset = `${BASE_URL}/media/${type}/${filename}-md.avif`;
-    }
-
-    function toHHMMSS() {
-        const sec_num = parseInt(duration, 10);
-        let hours = Math.floor(sec_num / 3600);
-        let minutes = Math.floor((sec_num - hours * 3600) / 60);
-        let seconds = sec_num - hours * 3600 - minutes * 60;
-        let h = hours < 10 ? '0' + hours : hours;
-        let m = minutes < 10 ? '0' + minutes : minutes;
-        let s = seconds < 10 ? '0' + seconds : seconds;
-        let mmss = m + ':' + s;
-        if (hours == 0) {
-            return mmss;
-        } else {
-            return h + ':' + mmss;
-        }
     }
 </script>
 
@@ -88,7 +74,7 @@
         />
     </picture>
     <div class="timecode-overlay text-white">
-        {toHHMMSS()}
+        {toHHMMSS(duration, false)}
     </div>
     {#if watched[type][uuid]}
         <div id="watched-progress" data-id={uuid} class="progress progress-overlay">

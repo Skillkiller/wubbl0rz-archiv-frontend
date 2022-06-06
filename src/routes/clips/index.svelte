@@ -8,7 +8,7 @@
 
     let clips;
     let p = 1;
-    let statsDB;
+    let statsDB = {};
     let ogTags = {
         title: 'Alle Clips',
         description: 'Twitch VOD Archiv von m4xfps/wubbl0rz',
