@@ -3,32 +3,31 @@
     import ClipGrid from '@components/ClipGrid.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
     import Pagination from '@components/Pagination.svelte';
+    import SEO from '@components/SEO.svelte';
     import { page } from '$app/stores';
     import { fetchApi } from '/src/functions';
 
     let vodsPage = 1;
     let clipsPage = 1;
     let pageSize = 18;
-    let query;
+    let statsDB = {};
+    let ogTags = {
+        title: '',
+        description: 'Suche',
+        imageurl: '/img/og.jpg',
+        imagealt: 'Wubbl0rz Archiv OG Image'
+    };
 
     page.subscribe(() => {
-        query = $page.params.query;
+        ogTags.title = $page.params.query;
     });
 </script>
 
-<svelte:head>
-    {#if query}
-        <meta property="og:title" content={query} />
-        <meta property="og:url" content={$page.url} />
-        <meta property="og:updated_time" content={query} />
-        <meta name="twitter:title" content={query} />
-        <title>{query}</title>
-    {/if}
-</svelte:head>
+<SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
     <div class="container">
-        {#await fetchApi(`/vods/?page_size=${pageSize}&page=${vodsPage}&search=${query}`)}
+        {#await fetchApi(`/vods/?page_size=${pageSize}&page=${vodsPage}&search=${ogTags.title}`)}
             <div class="row mb-4">
                 <div class="col-xs-12 col-md-7">
                     <h1 class="display-4 fw-bolder p-0 m-0 align-self-center">Vod Ergebnisse</h1>
@@ -57,7 +56,7 @@
         {/await}
     </div>
     <div class="container">
-        {#await fetchApi(`/clips/?page_size=${pageSize}&page=${clipsPage}&search=${query}`)}
+        {#await fetchApi(`/clips/?page_size=${pageSize}&page=${clipsPage}&search=${ogTags.title}`)}
             <div class="row mb-4">
                 <div class="col-xs-12 col-md-7">
                     <h1 class="display-4 fw-bolder p-0 m-0 align-self-center">Clip Ergebnisse</h1>
