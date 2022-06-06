@@ -1,7 +1,7 @@
 FROM node:alpine as build
 WORKDIR /app
 ENV VITE_BASE_URL=https://api.wubbl0rz.tv
-COPY package.json package-lock.json ./
+COPY package.json ./
 RUN npm ci
 COPY . .
 RUN npm run build && npm prune --production
