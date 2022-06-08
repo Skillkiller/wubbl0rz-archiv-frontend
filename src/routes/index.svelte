@@ -19,7 +19,7 @@
 
 <main class="flex-shrink-0">
     <div class="container">
-        {#if !statsDB?.is_live}
+        {#if statsDB?.is_live}
             <div
                 class="alert alert-custom border-0 rounded-3 fs-4 m-2 mb-5 fw-bold text-center"
                 role="alert"
