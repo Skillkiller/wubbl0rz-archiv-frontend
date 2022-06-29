@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-node';
+import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import path from 'path';
 
@@ -20,6 +20,9 @@ const config = {
                     '@stores': path.resolve('./src/stores')
                 }
             }
+        },
+        prerender: {
+            default: true
         }
     }
 };
