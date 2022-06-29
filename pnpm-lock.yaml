@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
     '@playwright/test': ^1.22.2
     '@popperjs/core': ^2.11.5
-    '@sveltejs/adapter-node': next
+    '@sveltejs/adapter-static': next
     '@sveltejs/kit': next
     '@typescript-eslint/eslint-plugin': ^5.29.0
     '@typescript-eslint/parser': ^5.29.0
@@ -38,8 +38,8 @@ dependencies:
 
 devDependencies:
     '@playwright/test': 1.22.2
-    '@sveltejs/adapter-node': 1.0.0-next.78
-    '@sveltejs/kit': 1.0.0-next.350_sass@1.52.3+svelte@3.48.0
+    '@sveltejs/adapter-static': 1.0.0-next.34
+    '@sveltejs/kit': 1.0.0-next.355_sass@1.52.3+svelte@3.48.0
     '@typescript-eslint/eslint-plugin': 5.29.0_jhecei4426266udiwaezrvm3dq
     '@typescript-eslint/parser': 5.29.0_e4zyhrvfnqudwdx5bevnvkluy4
     eslint: 7.32.0
@@ -221,19 +221,19 @@ packages:
             picomatch: 2.3.1
         dev: true
 
-    /@sveltejs/adapter-node/1.0.0-next.78:
+    /@sveltejs/adapter-static/1.0.0-next.34:
         resolution:
             {
-                integrity: sha512-TXB5Ii0z/7o1B05p/YLsS4t+JUHFHWBzFv1U16TKvM3HMbMUJIx+AhpM2WJfDX8HtAyfd1m9OawGoUB+1ed24A==
+                integrity: sha512-XjuMhemme5z0L/B2nTZpA6k+RJjF+b6L96ts6gIQ6ixiCzJQSbBqJhrrBYBCaeLAKvdUMoGEmX8m862JhKjRFg==
             }
         dependencies:
             tiny-glob: 0.2.9
         dev: true
 
-    /@sveltejs/kit/1.0.0-next.350_sass@1.52.3+svelte@3.48.0:
+    /@sveltejs/kit/1.0.0-next.355_sass@1.52.3+svelte@3.48.0:
         resolution:
             {
-                integrity: sha512-qkZNjp7yIj6t91+wMhmMtGJH0Lb89OaKdVXUDy92CS5/4OHRTKcQPdfOKs4no/upkS3RiFb+rEpOkYqTMcPUXg==
+                integrity: sha512-4M+BZL/kKgw5tMRkAYcpg38hxMX80iz6H9+nv2v6VzvKhD4Pw6zatzMs2D6PCT2uBHnrKGrUCheBBcK8kZdWKg==
             }
         engines: { node: '>=16.7' }
         hasBin: true
