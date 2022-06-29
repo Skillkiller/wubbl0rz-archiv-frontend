@@ -21,4 +21,4 @@ jobs:
                       cd ~/docker/archiv-frontend
                       git pull
                       npm i
-                      npm run build
+                      VITE_BASE_URL=https://api.wubbl0rz.tv npm run build
