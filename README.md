@@ -22,3 +22,13 @@ pnpm run build
 ```
 
 You can preview the production build with `pnpm run preview`.
+
+## Example caddy config
+
+```
+archiv.wubbl0rz.de {
+    root * /path/to/archiv-frontend/build
+    try_files {path} {path}/ index.html
+    file_server
+}
+```
