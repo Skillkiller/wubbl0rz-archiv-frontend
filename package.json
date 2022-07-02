@@ -4,6 +4,7 @@
     "scripts": {
         "dev": "svelte-kit dev --host",
         "build": "VITE_BASE_URL=https://api.wubbl0rz.tv svelte-kit build",
+        "build:dev": "VITE_BASE_URL=https://wub-api.inpognito.de svelte-kit build",
         "package": "svelte-kit package",
         "preview": "svelte-kit preview",
         "prepare": "svelte-kit sync && husky install",
