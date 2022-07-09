@@ -12,16 +12,9 @@ const config = {
         adapter: adapter({
             fallback: 'index.html'
         }),
-        vite: {
-            build: {
-                chunkSizeWarningLimit: 1500
-            },
-            resolve: {
-                alias: {
-                    '@components': path.resolve('./src/components'),
-                    '@stores': path.resolve('./src/stores')
-                }
-            }
+        alias: {
+            '@components': path.resolve('./src/components'),
+            '@stores': path.resolve('./src/stores')
         },
         prerender: {
             default: true
