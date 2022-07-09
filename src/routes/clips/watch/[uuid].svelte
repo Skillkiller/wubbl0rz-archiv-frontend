@@ -5,6 +5,12 @@
 
     export async function load({ params }) {
         const clip = await fetchApi(`/clips/${params.uuid}/`);
+        if (!clip.uuid) {
+            return {
+                status: 404,
+                error: `Clip '${params.uuid}' nicht gefunden`
+            };
+        }
         return { props: { clip } };
     }
 </script>

@@ -5,6 +5,12 @@
 
     export async function load({ params }) {
         const vod = await fetchApi(`/vods/${params.uuid}/`);
+        if (!vod.uuid) {
+            return {
+                status: 404,
+                error: `Vod '${params.uuid}' nicht gefunden`
+            };
+        }
         return { props: { vod } };
     }
 </script>
