@@ -18,7 +18,7 @@ jobs:
                   key: ${{ secrets.SSH_PRIVATE_KEY }}
                   port: ${{ secrets.SSH_PORT }}
                   script: |
-                      cd ~/docker/archiv-frontend
+                      cd ~/repos/archiv-frontend
                       git pull
                       npm i
                       npm run build
