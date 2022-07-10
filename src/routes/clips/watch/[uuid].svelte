@@ -22,6 +22,7 @@
     import VideoThumbnail from '@components/VideoThumbnail.svelte';
     import Player from '@components/Player.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
+    import BookmarkButton from '@components/BookmarkButton.svelte';
     import ShareButton from '@components/ShareButton.svelte';
     import HotkeyModal from '@components/HotkeyModal.svelte';
     import SEO from '@components/SEO.svelte';
@@ -154,7 +155,10 @@
                         </div>
                     </div>
                 </div>
-                <ShareButton bind:time />
+                <div class="d-flex gap-2 ms-auto">
+                    <BookmarkButton bind:id={clip.uuid} type="clips" />
+                    <ShareButton bind:time />
+                </div>
             </div>
             <p class="collapse text-muted mt-2" id="collapseExample">
                 Auflösung: {clip.resolution}<br />

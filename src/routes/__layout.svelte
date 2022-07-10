@@ -16,6 +16,7 @@
     let showResults = false;
     let searchFocus = -1;
     let preferesDark;
+    let hasBookmarkedItems = false;
 
     onMount(async () => {
         // bootstrap js
@@ -41,6 +42,8 @@
         preferesDark.addEventListener('change', (e) => {
             setTheme(e.matches ? 'dark' : 'light');
         });
+
+        hasBookmarkedItems = localStorage.getItem('bookmarks') !== null;
 
         // close search results when clicking somewhere else on the page
         document.addEventListener('click', function (e) {
@@ -164,6 +167,11 @@
                     <li class="nav-item">
                         <a class="nav-link fs-5" href="/stats">Stats</a>
                     </li>
+                    {#if hasBookmarkedItems}
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" href="/bookmarked">Gemerkte Vods/Clips</a>
+                        </li>
+                    {/if}
                 </ul>
                 <div class="d-flex input-group me-2 search-container" autocomplete="off">
                     <input
