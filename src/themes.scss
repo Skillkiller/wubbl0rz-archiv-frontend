@@ -87,10 +87,7 @@
     --color-footer-background: #073642;
     --progress-bar-fg: #ff00ff;
     --border: 1px solid var(--color-main) !important;
-    h1,
-    .h5 {
-        text-shadow: 0px 0px 20px #ff64d8;
-    }
+    --color-alert-danger: #ff00c8;
 }
 
 // bootstrap vars

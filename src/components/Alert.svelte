@@ -17,6 +17,9 @@
 </div>
 
 <style lang="scss">
+    :global(a) {
+        color: inherit;
+    }
     .alert-custom-success {
         background-color: var(--color-hover);
         color: var(--color-alert-success);
