@@ -5,6 +5,9 @@ const config = {
     plugins: [sveltekit()],
     build: {
         chunkSizeWarningLimit: 1500
+    },
+    ssr: {
+        noExternal: ['chart.js/**']
     }
 };
 
