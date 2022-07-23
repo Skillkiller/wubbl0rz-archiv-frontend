@@ -1,10 +1,9 @@
 <script context="module">
-    import { fetchApi } from '/src/functions';
-
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-    export async function load({ params }) {
-        const clip = await fetchApi(`/clips/${params.uuid}/`);
+    export async function load({ params, fetch }) {
+        const response = await fetch(`${BASE_URL}/clips/${params.uuid}/?format=json`);
+        const clip = await response.json();
         if (!clip.uuid) {
             return {
                 status: 404,
@@ -16,6 +15,7 @@
 </script>
 
 <script>
+    import { fetchApi } from '/src/functions';
     import { onMount } from 'svelte';
     import { format, parseISO } from 'date-fns';
     import { formatBytes, parseShareTime } from '/src/functions.js';
