@@ -94,6 +94,13 @@ footer {
     background-color: var(--color-main);
     color: var(--color-background) !important;
 
+    &.show,
+    &:focus,
+    &:active,
+    &:hover {
+        background-color: var(--color-main);
+    }
+
     &:focus {
         box-shadow: none;
     }

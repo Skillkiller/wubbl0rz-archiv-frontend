@@ -9,6 +9,5 @@
 build
 node_modules
 package
-package-lock.json
 
 !.env.example
