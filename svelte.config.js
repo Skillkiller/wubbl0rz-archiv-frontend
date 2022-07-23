@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 import path from 'path';
 
@@ -9,9 +9,7 @@ const config = {
     preprocess: preprocess(),
 
     kit: {
-        adapter: adapter({
-            fallback: 'index.html'
-        }),
+        adapter: adapter(),
         alias: {
             '@components': path.resolve('./src/components'),
             '@stores': path.resolve('./src/stores')
