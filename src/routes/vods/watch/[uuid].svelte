@@ -69,7 +69,6 @@
                     </p>
                 </div>
                 <div class="d-flex gap-2 ms-auto">
-                    <BookmarkButton bind:id={vod.uuid} type="vods" />
                     <ShareButton bind:time />
                 </div>
             </div>
@@ -85,6 +84,7 @@
                     >
                         Mehr anzeigen
                     </button>
+                    <BookmarkButton uuid={vod.uuid} type="vods" />
                     <a href="{BASE_URL}/dl/vods/{vod.uuid}" class="btn btn-sm" rel="external">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

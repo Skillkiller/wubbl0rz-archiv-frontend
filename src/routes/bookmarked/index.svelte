@@ -3,8 +3,8 @@
     import VodGrid from '@components/VodGrid.svelte';
     import ClipGrid from '@components/ClipGrid.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
-    import Alert from '@components/Alert.svelte';
     import SEO from '@components/SEO.svelte';
+    import { bookmarkStore } from '@stores/bookmarks';
 
     let statsDB = {};
     let ogTags = {
@@ -13,51 +13,42 @@
         imageurl: '/img/og.jpg',
         imagealt: 'Wubbl0rz Archiv OG Image'
     };
-    let apiError = false;
+    let bookmarks;
 
-    const bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-    const vods = bookmarks.vods.join(',');
-    const clips = bookmarks.clips.join(',');
+    bookmarkStore.subscribe((bm) => {
+        bookmarks = bm;
+    });
 </script>
 
 <SEO bind:ogTags bind:statsDB />
 
 <main class="flex-shrink-0">
-    {#if vods.length > 0}
-        <div class="container">
-            <h1
-                class="display-4 fw-bolder p-0 m-0 mb-4 align-self-center"
-                class:d-none={apiError ? true : false}
-            >
+    <div class="container">
+        {#if bookmarks?.vods.length > 0}
+            <h1 class="display-4 fw-bolder p-0 m-0 mb-4 align-self-center">
                 <p>Gemerkte Vods</p>
             </h1>
-            {#await fetchApi(`/vods/?uuids=${vods}`)}
-                <GridPlaceholder count="12" />
+            {#await fetchApi(`/vods/?uuids=${bookmarks.vods.join(',')}`)}
+                <GridPlaceholder count="4" />
             {:then vods}
                 <VodGrid {vods} />
-            {:catch}
-                <Alert
-                    bind:this={apiError}
-                    level="danger"
-                    title="Api nicht erreichbar"
-                    subtitle="Status hier prüfen: <a href='https://status.wubbl0rz.tv/status/wubbl0rz' target='_blank' class='alert-link'>status.wubbl0rz.tv</a>"
-                />
             {/await}
-        </div>
-    {/if}
-    {#if clips.length > 0}
-        <div class="container">
-            <h1
-                class="display-4 fw-bolder p-0 m-0 mb-4 align-self-center"
-                class:d-none={apiError ? true : false}
-            >
+        {/if}
+        {#if bookmarks?.clips.length > 0}
+            <h1 class="display-4 fw-bolder p-0 m-0 mb-4 align-self-center">
                 <p>Gemerkte Clips</p>
             </h1>
-            {#await fetchApi(`/clips/?uuids=${clips}`)}
-                <GridPlaceholder count="12" />
+            {#await fetchApi(`/clips/?uuids=${bookmarks.clips.join(',')}`)}
+                <GridPlaceholder count="4" />
             {:then clips}
                 <ClipGrid {clips} />
             {/await}
-        </div>
-    {/if}
+        {/if}
+        {#if bookmarks?.vods.length === 0 && bookmarks?.clips.length === 0}
+            <h1 class="display-4 fw-bolder p-0 m-0 mb-4 align-self-center">
+                <p>Keine gemerkten Items</p>
+            </h1>
+            <GridPlaceholder count="3" />
+        {/if}
+    </div>
 </main>

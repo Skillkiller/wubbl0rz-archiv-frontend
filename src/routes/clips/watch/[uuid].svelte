@@ -104,6 +104,7 @@
                                     >
                                         Mehr anzeigen
                                     </button>
+                                    <BookmarkButton uuid={clip.uuid} type="clips" />
                                     <a
                                         href="{BASE_URL}/dl/clips/{clip.uuid}"
                                         class="btn btn-sm"
@@ -156,7 +157,6 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2 ms-auto">
-                    <BookmarkButton bind:id={clip.uuid} type="clips" />
                     <ShareButton bind:time />
                 </div>
             </div>
