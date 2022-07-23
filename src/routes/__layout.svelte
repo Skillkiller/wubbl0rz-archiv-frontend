@@ -43,7 +43,9 @@
             setTheme(e.matches ? 'dark' : 'light');
         });
 
-        hasBookmarkedItems = localStorage.getItem('bookmarks') !== null;
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+        hasBookmarkedItems =
+            bookmarks !== null && (bookmarks.vods.length > 0 || bookmarks.clips.length > 0);
 
         // close search results when clicking somewhere else on the page
         document.addEventListener('click', function (e) {
