@@ -22,6 +22,7 @@
     import VideoThumbnail from '@components/VideoThumbnail.svelte';
     import Player from '@components/Player.svelte';
     import GridPlaceholder from '@components/GridPlaceholder.svelte';
+    import BookmarkButton from '@components/BookmarkButton.svelte';
     import ShareButton from '@components/ShareButton.svelte';
     import HotkeyModal from '@components/HotkeyModal.svelte';
     import SEO from '@components/SEO.svelte';
@@ -67,7 +68,9 @@
                         {format(parseISO(vod.date), 'dd.MM.yyyy - HH:mm')} Uhr
                     </p>
                 </div>
-                <ShareButton bind:time />
+                <div class="d-flex gap-2 ms-auto">
+                    <ShareButton bind:time />
+                </div>
             </div>
             <div>
                 <p class="lh-lg">
@@ -81,6 +84,7 @@
                     >
                         Mehr anzeigen
                     </button>
+                    <BookmarkButton uuid={vod.uuid} type="vods" />
                     <a href="{BASE_URL}/dl/vods/{vod.uuid}" class="btn btn-sm" rel="external">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

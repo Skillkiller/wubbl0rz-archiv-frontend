@@ -1,9 +1,11 @@
 <script>
     import { onMount } from 'svelte';
+    import { browser } from '$app/env';
+    import { goto } from '$app/navigation';
     import { format, formatDistanceToNow, parseISO } from 'date-fns';
     import { de } from 'date-fns/locale/index.js';
-    import { goto } from '$app/navigation';
     import { theme } from '@stores/main';
+    import { bookmarkStore } from '@stores/bookmarks';
     import { fetchApi } from '/src/functions';
 
     import Head from '@components/Head.svelte';
@@ -16,6 +18,12 @@
     let showResults = false;
     let searchFocus = -1;
     let preferesDark;
+    let bookmarks;
+    let hasBookmarkedItems = false;
+
+    $: hasBookmarkedItems =
+        $bookmarkStore !== null &&
+        ($bookmarkStore.vods.length > 0 || $bookmarkStore.clips.length > 0);
 
     onMount(async () => {
         // bootstrap js
@@ -64,6 +72,13 @@
         };
     });
 
+    // handle bookmark changes
+    bookmarkStore.subscribe((bm) => {
+        bookmarks = bm;
+        if (browser) localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    });
+
+    // handle new theme
     function setTheme(newTheme) {
         document.documentElement.setAttribute('data-theme', newTheme);
         $theme = newTheme;
@@ -164,6 +179,19 @@
                     <li class="nav-item">
                         <a class="nav-link fs-5" href="/stats">Stats</a>
                     </li>
+                    {#if hasBookmarkedItems}
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" href="/bookmarked">
+                                Gemerkt
+                                {#if hasBookmarkedItems}
+                                    <span class="badge rounded-2 px-1 bookmark-count"
+                                        >{$bookmarkStore.vods.length +
+                                            $bookmarkStore.clips.length}</span
+                                    >
+                                {/if}
+                            </a>
+                        </li>
+                    {/if}
                 </ul>
                 <div class="d-flex input-group me-2 search-container" autocomplete="off">
                     <input
@@ -384,6 +412,11 @@
 
     .cursor-pointer {
         cursor: pointer;
+    }
+
+    .bookmark-count {
+        background-color: var(--color-main);
+        color: var(--color-background);
     }
 
     @media only screen and (max-width: 991px) {
