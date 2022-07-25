@@ -1,6 +1,6 @@
 <script>
     import VideoThumbnail from './VideoThumbnail.svelte';
-    import { formatDistanceToNow, parseISO } from 'date-fns';
+    import { format, formatDistanceToNow, parseISO } from 'date-fns';
     import { de } from 'date-fns/locale/index.js';
     import { emotes, showEmotesInTitle } from '@stores/emotes';
 
@@ -31,7 +31,12 @@
                             {/await}
                         </p>
                     </a>
-                    <p class="card-text text-muted">
+                    <p
+                        class="card-text text-muted"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title={format(parseISO(clip.date), 'dd.MM.yyyy HH:mm:ss')}
+                    >
                         {formatDistanceToNow(parseISO(clip.date), { locale: de })}<br />
                         {clip.view_count} Views - {clip.creator}
                     </p>

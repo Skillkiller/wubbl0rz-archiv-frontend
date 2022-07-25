@@ -31,7 +31,12 @@
                             {/await}
                         </p>
                     </a>
-                    <p class="card-text text-muted">
+                    <p
+                        class="card-text text-muted"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title={format(parseISO(vod.date), 'dd.MM.yyyy HH:mm:ss')}
+                    >
                         {formatDistanceToNow(parseISO(vod.date), { locale: de })},
                         {format(parseISO(vod.date), 'HH:mm')} Uhr
                     </p>
