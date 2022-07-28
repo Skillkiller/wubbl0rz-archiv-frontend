@@ -1,7 +1,7 @@
 version: '3'
 services:
     frontend:
-        container_name: archiv-frontend
+        container_name: wub-frontend
         build: .
         ports:
             - 127.0.0.1:8002:3000
