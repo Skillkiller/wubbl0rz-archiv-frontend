@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { Chart, registerables } from 'chart.js/dist/chart.esm';
+    import ChartDataLabels from 'chartjs-plugin-datalabels';
     import { theme } from '@stores/main';
     import { themeColors } from './StatsColors.svelte';
 
@@ -21,6 +22,9 @@
                 dataset.backgroundColor = colors?.backgroundColors;
             });
             chart.options.plugins.legend.labels.color = colors?.ticks;
+            chart.options.plugins.datalabels = {
+                color: colors?.ticks
+            };
             chart.update();
         }
     });
@@ -28,6 +32,7 @@
     onMount(async () => {
         let ctx = chartCanvas.getContext('2d');
         chart = new Chart(ctx, {
+            plugins: [ChartDataLabels],
             type: 'doughnut',
             data: {
                 labels: chartLabels,
@@ -45,6 +50,9 @@
                         labels: {
                             color: colors?.ticks
                         }
+                    },
+                    datalabels: {
+                        color: colors?.ticks
                     }
                 }
             }

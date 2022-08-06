@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { Chart, registerables } from 'chart.js/dist/chart.esm';
+    import ChartDataLabels from 'chartjs-plugin-datalabels';
     import { theme } from '@stores/main';
     import { themeColors } from './StatsColors.svelte';
 
@@ -24,6 +25,9 @@
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    datalabels: {
+                        color: colors?.ticks
                     }
                 },
                 scales: {
@@ -52,6 +56,7 @@
     onMount(async () => {
         let ctx = chartCanvas.getContext('2d');
         chart = new Chart(ctx, {
+            plugins: [ChartDataLabels],
             type: 'bar',
             data: {
                 labels: chartLabels,
@@ -66,6 +71,9 @@
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    datalabels: {
+                        color: colors?.ticks
                     }
                 },
                 scales: {
