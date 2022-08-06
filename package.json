@@ -40,6 +40,7 @@
         "@popperjs/core": "^2.11.5",
         "bootstrap": "^5.2.0",
         "chart.js": "^3.8.0",
+        "chartjs-plugin-datalabels": "^2.1.0",
         "date-fns": "^2.29.1",
         "sass": "^1.54.0",
         "videojs-seek-buttons": "^2.2.1",
