@@ -64,7 +64,7 @@
         },
         solarized: {
             grid: '#073642',
-            ticks: '#839496',
+            ticks: '#eee8d5',
             backgroundColors: [
                 '#b58900',
                 '#cb4b16',
