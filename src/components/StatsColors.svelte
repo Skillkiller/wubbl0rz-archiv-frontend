@@ -78,8 +78,8 @@
             ]
         },
         ayaya: {
-            grid: '#073642',
-            ticks: '#ff00c8',
+            grid: '#a46c98',
+            ticks: '#073642',
             backgroundColors: [
                 '#ff00c8',
                 '#825f99',
